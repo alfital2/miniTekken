@@ -29,6 +29,21 @@ function attackMonster(mode){
     currentPlayerHealth = currentPlayerHealth- playerDamage;
 
     endRound(currentMonsterHealth,currentPlayerHealth);
+
+}
+
+
+function resetGameHandler(){
+
+    if (currentMonsterHealth<= 0 && currentPlayerHealth<=0 ||
+        currentMonsterHealth <= 0 ||
+        currentPlayerHealth <=0){
+        currentMonsterHealth =  currentPlayerHealth = chosenMaxLife; 
+        resetGame(chosenMaxLife);
+        }
+    else{
+        alert("the game is still running!");
+    }
 }
 
 function endRound(currentMonsterHealth,currentPlayerHealth){
@@ -72,11 +87,10 @@ function healPlayerHandler(){
 }
 
 
-
-
 //----------------------
 //setting the amount of life for the charecters
 adjustHealthBars(chosenMaxLife);
 attackBtn.addEventListener('click',attackHandler);
 strongAttackBtn.addEventListener('click',strongAttackHandler);
 healBtn.addEventListener('click',healPlayerHandler);
+resetBtn.addEventListener('click',resetGameHandler);
