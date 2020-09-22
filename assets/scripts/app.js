@@ -9,13 +9,12 @@ const TIME_WATING_FOR_ATTACK = 1000;
 const USER_HEAL_MSG = ' just used heal! total user health is: '
 
 let use_heal = false;
-let chosenMaxLife = 100;
+let chosenMaxLife = 20;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife; 
 
 
 adjustHealthBars(chosenMaxLife);
-
 resetMonitor();
 
 
@@ -88,7 +87,7 @@ function healPlayerHandler(){
 
     if(!use_heal){
         use_heal = true;
-        disableHealButton();
+        toggleHealButton(use_heal);
         
         let healValue;
 

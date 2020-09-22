@@ -36,45 +36,48 @@ function resetMonitor(){
 }
 
 
-function disableHealButton(){
+function toggleHealButton(mode){
+  background =  borderColor = mode ? 'grey' : '#ff0062';
   document.getElementById(healBtn.id).disabled = true;
-  document.getElementById(healBtn.id).style.background='grey';
-  document.getElementById(healBtn.id).style.borderColor ='grey';
+  document.getElementById(healBtn.id).style.background=background;
+  document.getElementById(healBtn.id).style.borderColor =borderColor;
 }
 
 
-function toggleControlButtons(mode){
+function toggleControlButtons(disable){
   let css
-  if(mode){
-    css = `button {background: grey;
-      border: 1px solid grey;}
-      button:hover,
-      button:active {
-        background: grey;
-        border-color: grey;
-      }`;
+  if(disable){
+    css = `button {
+          background: grey;
+          border: 1px solid grey;
+          display: none;
+         }
+          button:hover,
+          button:active {
+          background: grey;
+          border-color: grey;
+          }`;
   }
   else{
-    css = `button {background: #ff0062;
-      border: 1px solid #ff0062;}
-      button:hover,
-      button:active {
-      background: #a927f5;
-      border-color: #a927f5;`;
-  }
+    css =`button {background: #ff0062;
+          border: 1px solid #ff0062;
+          display : inline;
+          }
+          button:hover,
+          button:active {
+          background: #a927f5;
+          border-color: #a927f5;
+          }`;
+        }
 
-  var style = document.createElement('style');
+  let style = document.createElement('style');
   
   if (style.styleSheet) {
-   
-
-      style.styleSheet.cssText = css;
+        style.styleSheet.cssText = css;
   } else {
       style.appendChild(document.createTextNode(css));
   }
-  
-  document.getElementsByTagName('head')[0].appendChild(style);
-  console.log("hereh")
+    document.getElementsByTagName('head')[0].appendChild(style);
   
 }
 
@@ -103,6 +106,9 @@ function increasePlayerHealth(healValue) {
 }
 
 function resetGame(value) {
+  resetMonitor();
+  toggleHealButton(ENABLE_BUTTONS);
+  toggleControlButtons(ENABLE_BUTTONS);
   document.getElementById(healBtn.id).disabled = false;
   playerHealthBar.value = value;
   monsterHealthBar.value = value;

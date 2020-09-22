@@ -40,8 +40,6 @@ progress[value]::-moz-progress-bar {
 
 button {
   font: inherit;
-  background: #ff0062;
-  border: 1px solid #ff0062;
   color: white;
   padding: 1rem 2rem;
   border-radius: 6px;
@@ -70,9 +68,6 @@ button:active {
   background: white;
 }
 
-#heal-btn:focus {     
-  background-color:grey;    
-}
 
 #controls {
   display: flex;
