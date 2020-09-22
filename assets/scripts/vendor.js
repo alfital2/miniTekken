@@ -6,8 +6,77 @@ const attackBtn = document.getElementById('attack-btn');
 const strongAttackBtn = document.getElementById('strong-attack-btn');
 const healBtn = document.getElementById('heal-btn');
 const resetBtn = document.getElementById('reset-btn');
+const monitor= document.getElementById('monitor');
+
+const ENABLE_BUTTONS= false;
+const DISABLE_BUTTONS= true;
+
+const COUNTDOWN_INTERVAL = 1000;
+const SECONDS_TO_COUNT= 0;
+
+////colors scheme
+const ACTIVE_COLOR_BACKGROUND= '#ff0062';
+const ACTIVE_HOVER_COLOR = '#a927f5';
 
 
+function resetMonitor(){
+  let i=SECONDS_TO_COUNT;
+  toggleControlButtons(DISABLE_BUTTONS);
+  monitor.innerHTML = "get ready!";
+  let myInterval = setInterval(()=>{
+    monitor.innerHTML = i;
+    if(i==0) {
+      monitor.innerHTML = "FIGHT!"; 
+      toggleControlButtons(ENABLE_BUTTONS);
+      clearInterval(myInterval);
+    }
+    i=i-1;
+  },COUNTDOWN_INTERVAL)
+
+}
+
+
+function disableHealButton(){
+  document.getElementById(healBtn.id).disabled = true;
+  document.getElementById(healBtn.id).style.background='grey';
+  document.getElementById(healBtn.id).style.borderColor ='grey';
+}
+
+
+function toggleControlButtons(mode){
+  let css
+  if(mode){
+    css = `button {background: grey;
+      border: 1px solid grey;}
+      button:hover,
+      button:active {
+        background: grey;
+        border-color: grey;
+      }`;
+  }
+  else{
+    css = `button {background: #ff0062;
+      border: 1px solid #ff0062;}
+      button:hover,
+      button:active {
+      background: #a927f5;
+      border-color: #a927f5;`;
+  }
+
+  var style = document.createElement('style');
+  
+  if (style.styleSheet) {
+   
+
+      style.styleSheet.cssText = css;
+  } else {
+      style.appendChild(document.createTextNode(css));
+  }
+  
+  document.getElementsByTagName('head')[0].appendChild(style);
+  console.log("hereh")
+  
+}
 
 
 function adjustHealthBars(maxLife) {
@@ -34,6 +103,7 @@ function increasePlayerHealth(healValue) {
 }
 
 function resetGame(value) {
+  document.getElementById(healBtn.id).disabled = false;
   playerHealthBar.value = value;
   monsterHealthBar.value = value;
 }

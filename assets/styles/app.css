@@ -70,6 +70,10 @@ button:active {
   background: white;
 }
 
+#heal-btn:focus {     
+  background-color:grey;    
+}
+
 #controls {
   display: flex;
   flex-direction: column;
