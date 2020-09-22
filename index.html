@@ -10,18 +10,45 @@
     <script src="assets/scripts/app.js" defer></script>
   </head>
   <body>
+
+
+    
+
+<div class="grid-container">
+  <div class="header">Header</div>
+  <div class="user">
     <section id="health-levels">
-        <h2>MONSTER HEALTH</h2>
-        <progress id="monster-health" max="100" value="100" >100%</progress>
-        <h2>PLAYER HEALTH<span id="bonus-life">1</span></h2>
-        <progress id="player-health" max="100" value="100">100%</progress>
+    <h2>PLAYER HEALTH<span id="bonus-life">1</span></h2>
+    <progress id="player-health" max="100" value="100">100%</progress>
     </section>
+  </div>
+  <div class= "main"> main</div>
+  <div class="monster">
+    <section id="health-levels">
+    <h2>MONSTER HEALTH</h2>
+    <progress id="monster-health" max="100" value="100" >100%</progress>
+  </section>
+  
+  </div>  
+
+  <div class="userImg">
+    <img src="assets/images/user.png"/>
+  </div>
+
+  <div class="section">
     <section id="controls">
       <button id="attack-btn">ATTACK</button>
       <button id="strong-attack-btn">STRONG ATTACK</button>
       <button id="heal-btn">HEAL</button>
-      <button id="log-btn">SHOW LOG</button>
       <button id="reset-btn">RESET GAME</button>
     </section>
+  
+  </div>
+  <div class="monsterImg">
+    <img src="assets/images/monster.png"/>
+  </div>
+</div>
+
   </body>
+
 </html>
