@@ -1,9 +1,19 @@
+/* 
+web background: #0c2a3a
+progess bar full: #f8bf42
+progress bar border : #f8bf42
+progress bar empty: #9f3435
+header backgrpund : #0e1a22
+buttons color: #a2112a
+buttons hover : #f37a64 ////THIS I S DYNAMICALY ADJUSTED!
+*/
+
 html {
   font-family: sans-serif;
 }
 
 body {
-  background: #2c2c2c;
+  background: #0c2a3a;
 }
 
 h2 {
@@ -17,24 +27,23 @@ progress {
   appearance: none;
   width: 80%;
   height: 2rem;
-  color: #ff0062;
-  border: 1px solid #a927f5;
+  color: #f8bf42;
+  border: 1px solid #f8bf42;
 
 }
 
 progress[value]::-webkit-progress-bar,
 progress[value] {
-  background-color: #eee;
+  background-color: #9f3435;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
 progress[value]::-webkit-progress-value {
-  background-color: #a927f5;
+  background-color: #f8bf42;
   transition: all 0.2s ease-out;
 }
 
 progress[value]::-moz-progress-bar {
-  background-color: #a927f5;
   transition: all 0.2s ease-out;
 }
 
@@ -51,21 +60,17 @@ button:focus {
   outline: none;
 }
 
-button:hover,
-button:active {
-  background: #a927f5;
-  border-color: #a927f5;
-}
 
 #health-levels,
 #controls {
+  color: white;
   margin: 2rem auto;
-  width: 30rem;
+  width: 20rem;
   text-align: center;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: white;
+  background: #0e1a22;
 }
 
 
@@ -74,46 +79,49 @@ button:active {
   flex-direction: column;
 }
 
-#bonus-life {
-  font-weight: bold;
-  color: white;
-  background: #ff0062;
-  border: 1px solid #ff0062;
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  text-align: center;
-  margin: 0 0.5rem;
-}
-
-
-
 
 .header { 
+  text-align: center;
+  display: block;
   grid-area: header; 
-}
+  border-radius: 10px;
+  width: 100%;
+  background-size: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  background: #0e1a22;
+  }
+
 .user {
    grid-area: user;
    }
 .monster {
+  
    grid-area: monster; 
   }
 .section {
    grid-area: section;
    }
 
-.monsterImg , .userImg{
+  img {
+  max-width: 100%;
+  max-height: 100%;
+  }
+
+
+.monsterImg , .userImg {
   margin: 2rem auto;
-  width: 30rem;
-  text-align: center;
+  width: 50%;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   background: white;
 }
 
+
+
 .main {
   margin: 2rem auto;
-  width: 30rem;
+  width: 70%;
   text-align: center;
   border-radius: 10px;
   padding: 1rem;
@@ -123,17 +131,12 @@ button:active {
   }
 
   
- 
-
 .grid-container {
   position: fixed;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  height:80vh; 
-  width: 80vw;
-
   display: grid;
   grid-template-areas:
     'header header header'
@@ -143,9 +146,3 @@ button:active {
   padding: 10px;
 }
 
-
-
-img {
-  max-width: 100%;
-  max-height: 100%;
-}

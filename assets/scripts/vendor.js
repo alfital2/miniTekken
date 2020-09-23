@@ -1,3 +1,4 @@
+print = console.log;
 const monsterHealthBar = document.getElementById('monster-health');
 const playerHealthBar = document.getElementById('player-health');
 const bonusLifeEl = document.getElementById('bonus-life');
@@ -11,74 +12,94 @@ const monitor= document.getElementById('monitor');
 const ENABLE_BUTTONS= false;
 const DISABLE_BUTTONS= true;
 
+const ALL_BUTTONS = 'button';
+const HEAL_BUTTON = '#heal-btn';
+
 const COUNTDOWN_INTERVAL = 1000;
 const SECONDS_TO_COUNT= 0;
+const TIMEֹֹ_PAUSE_ATTACK=50;
 
 ////colors scheme
 const ACTIVE_COLOR_BACKGROUND= '#ff0062';
 const ACTIVE_HOVER_COLOR = '#a927f5';
 
+let canPlay = false;
+let gameStarted;
+
 
 function resetMonitor(){
   let i=SECONDS_TO_COUNT;
-  toggleControlButtons(DISABLE_BUTTONS);
+  gameStarted = false;
+  toggleControlButtons(DISABLE_BUTTONS,ALL_BUTTONS);
   monitor.innerHTML = "get ready!";
   let myInterval = setInterval(()=>{
     monitor.innerHTML = i;
     if(i==0) {
       monitor.innerHTML = "FIGHT!"; 
-      toggleControlButtons(ENABLE_BUTTONS);
+      toggleControlButtons(ENABLE_BUTTONS,ALL_BUTTONS);
+      toggleControlButtons(ENABLE_BUTTONS,HEAL_BUTTON);
+      gameStarted = true;
       clearInterval(myInterval);
     }
     i=i-1;
   },COUNTDOWN_INTERVAL)
-
 }
 
+function getOpponentHtmlElement(opponent){
+
+  if (opponent == MONSTER){
+    return document.getElementsByClassName('monsterImg');
+  }
+  else if(opponent == USER){
+    return document.getElementsByClassName('userImg');
+  }
+}
+
+function changeBgColor(opponent){
+  let element ;
+  element = getOpponentHtmlElement(opponent);
+ 
+  element[0].style.backgroundColor = 'red';
+  setTimeout(()=>{
+    element[0].style.backgroundColor = 'white';
+  },TIMEֹֹ_PAUSE_ATTACK);
+
+}
 
 function toggleHealButton(mode){
-  background =  borderColor = mode ? 'grey' : '#ff0062';
-  document.getElementById(healBtn.id).disabled = true;
-  document.getElementById(healBtn.id).style.background=background;
-  document.getElementById(healBtn.id).style.borderColor =borderColor;
+  toggleControlButtons(mode,HEAL_BUTTON);
 }
 
-
-function toggleControlButtons(disable){
-  let css
-  if(disable){
-    css = `button {
-          background: grey;
-          border: 1px solid grey;
-          display: none;
-         }
-          button:hover,
-          button:active {
-          background: grey;
-          border-color: grey;
-          }`;
-  }
-  else{
-    css =`button {background: #ff0062;
-          border: 1px solid #ff0062;
-          display : inline;
-          }
-          button:hover,
-          button:active {
-          background: #a927f5;
-          border-color: #a927f5;
-          }`;
-        }
-
+function updateStyle(css){
   let style = document.createElement('style');
-  
   if (style.styleSheet) {
         style.styleSheet.cssText = css;
   } else {
       style.appendChild(document.createTextNode(css));
   }
     document.getElementsByTagName('head')[0].appendChild(style);
-  
+}
+
+
+function creartCss(css,element){
+  return css.replace(/dynamicElement/gi, element);
+  //return css.replace('dynamicElement', element);
+}
+
+
+function toggleControlButtons(disable,element){
+  let css;
+
+  if(disable){
+    canPlay = false;
+    css = creartCss(blockedButtons,element); //source value at dynamicUpdates.js
+  }
+  else{
+    canPlay = true;
+    css =creartCss(unBlockesButtons,element);//source value at dynamicUpdates.js
+  }
+  print(css);
+  updateStyle(css);
 }
 
 
@@ -107,17 +128,20 @@ function increasePlayerHealth(healValue) {
 
 function resetGame(value) {
   resetMonitor();
-  toggleHealButton(ENABLE_BUTTONS);
-  toggleControlButtons(ENABLE_BUTTONS);
-  document.getElementById(healBtn.id).disabled = false;
+  toggleHealButton(true);
   playerHealthBar.value = value;
   monsterHealthBar.value = value;
 }
 
-function removeBonusLife() {
-  bonusLifeEl.parentNode.removeChild(bonusLifeEl);
-}
 
 function setPlayerHealth(health) {
   playerHealthBar.value = health;
 }
+
+
+  // const btns = document.querySelectorAll(".btns");
+	// for (const btn of btns) {
+  //   // document.getElementsByTagName('head')[0].appendChild(style);
+  //   // let sheetParent = btn.parentNode;
+  //   // sheetParent.removeChild(btn.styleSheet);
+	// }

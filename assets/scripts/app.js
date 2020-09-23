@@ -7,45 +7,62 @@ const MODE_ATTACK = 'ATTACK';
 const MODE_STRONG_ATTACK = 'STRONG_ATTACK';
 const TIME_WATING_FOR_ATTACK = 1000;
 const USER_HEAL_MSG = ' just used heal! total user health is: '
+const MONSTER = 'MONSTER';
+const USER = "USER";
 
 let use_heal = false;
-let chosenMaxLife = 20;
+let chosenMaxLife = 50;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife; 
-
 
 adjustHealthBars(chosenMaxLife);
 resetMonitor();
 
 
-function attackHandler(){
-    attackMonster(MODE_ATTACK);
+function verifyCanPlay(){    
+    if (currentPlayerHealth<=0 || gameStarted==false){
+        return false;
+    }
+    if (!canPlay){
+        alert("please wait !")
+        return false;
+    }
+    return true;
 }
 
+function performAttack(attack){
+    let canPlay = verifyCanPlay();
 
-function strongAttackHandler(){
-    attackMonster(MODE_STRONG_ATTACK);
+    if(canPlay){
+        attackMonster(attack)
+    }
 }
 
 function attackMonster(mode){
-
+    canPlay=false; // this alters every time when user attack monster
     let maxDamage =getAttackMode(mode);
-    
+    changeBgColor(MONSTER);
+
     const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth = currentMonsterHealth - damage;
-    updateAttackToMonitor('user',damage);
-    
-    attackUser();
-    endRound(currentMonsterHealth,currentPlayerHealth);
 
+    updateAttackToMonitor(USER,damage); 
+    let continueRound = endRound(currentMonsterHealth,currentPlayerHealth);
+    if (continueRound)
+        attackUser();
 }
+
 
 function attackUser(){
     setTimeout(()=>{
         const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
         currentPlayerHealth = currentPlayerHealth- playerDamage;
-        updateAttackToMonitor('monster',playerDamage);
+        changeBgColor(USER);
+        updateAttackToMonitor(MONSTER,playerDamage);
+        endRound(currentMonsterHealth,currentPlayerHealth);
+        canPlay = true;
     },1000);
+    
 }
 
 function resetGameHandler(){
@@ -61,6 +78,10 @@ function resetGameHandler(){
 }
 
 function endRound(currentMonsterHealth,currentPlayerHealth){
+    let continueRound = true;
+    if (currentMonsterHealth<= 0 || currentPlayerHealth<=0){
+        continueRound = false;
+    }
     if (currentMonsterHealth<= 0 && currentPlayerHealth<=0){
         updateMonitor("It's a DRAW!")
     }
@@ -70,6 +91,7 @@ function endRound(currentMonsterHealth,currentPlayerHealth){
     else if(currentPlayerHealth <=0){
         updateMonitor("You Lost");
     }
+    return continueRound;
 }
 
 function getAttackMode(mode){
@@ -85,9 +107,9 @@ function getAttackMode(mode){
 
 function healPlayerHandler(){
 
-    if(!use_heal){
+    if(!use_heal && verifyCanPlay()){
         use_heal = true;
-        toggleHealButton(use_heal);
+        toggleHealButton(DISABLE_BUTTONS);
         
         let healValue;
 
@@ -102,6 +124,7 @@ function healPlayerHandler(){
 
         increasePlayerHealth(healValue);
         updateHealToMonitor('user');
+        attackUser();
         endRound();
     }
     
@@ -109,8 +132,7 @@ function healPlayerHandler(){
 
 
 //----------------------
-//setting the amount of life for the charecters
-attackBtn.addEventListener('click',attackHandler);
-strongAttackBtn.addEventListener('click',strongAttackHandler);
+attackBtn.addEventListener('click',()=>performAttack(MODE_ATTACK));
+strongAttackBtn.addEventListener('click',()=>performAttack(MODE_STRONG_ATTACK));
 healBtn.addEventListener('click',healPlayerHandler);
 resetBtn.addEventListener('click',resetGameHandler);

@@ -4,22 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Monster Killer</title>
+    <title>Tekken! (almost)</title>
     <link rel="stylesheet" href="assets/styles/app.css" />
+    <script src="assets/scripts/dynamicUpdate.js"></script>
     <script src="assets/scripts/vendor.js" defer></script>
     <script src="assets/scripts/app.js" defer></script>
     <script src="assets/scripts/monitor.js" defer></script>
   </head>
   <body>
-
-
     
-
 <div class="grid-container">
-  <div class="header">Header</div>
+  <div class="header">
+    <img src = "assets/images/logo.png">
+  </div>
   <div class="user">
     <section id="health-levels">
-    <h2>PLAYER HEALTH<span id="bonus-life">1</span></h2>
+    <h2>PLAYER HEALTH</h2>
     <progress id="player-health" max="100" value="100">100%</progress>
     </section>
   </div>
@@ -39,7 +39,7 @@
   </div>
 
   <div class="section">
-    <section id="controls">
+    <section  id="controls">
       <button id="attack-btn">ATTACK</button>
       <button id="strong-attack-btn">STRONG ATTACK</button>
       <button id="heal-btn">HEAL</button>
@@ -55,3 +55,4 @@
   </body>
 
 </html>
+
