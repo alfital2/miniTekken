@@ -21,4 +21,3 @@ let unBlockesButtons = `dynamicElement {
     }`;
 
 
-    f37a64

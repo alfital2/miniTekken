@@ -14,10 +14,11 @@ const DISABLE_BUTTONS= true;
 
 const ALL_BUTTONS = 'button';
 const HEAL_BUTTON = '#heal-btn';
+const STRONG_ADDACK_BUTTON = '#strong-attack-btn';
 
 const COUNTDOWN_INTERVAL = 1000;
-const SECONDS_TO_COUNT= 0;
-const TIMEֹֹ_PAUSE_ATTACK=50;
+const SECONDS_TO_COUNT= 3;
+const TIMEֹֹ_PAUSE_ATTACK=80;
 
 ////colors scheme
 const ACTIVE_COLOR_BACKGROUND= '#ff0062';
@@ -38,6 +39,7 @@ function resetMonitor(){
       monitor.innerHTML = "FIGHT!"; 
       toggleControlButtons(ENABLE_BUTTONS,ALL_BUTTONS);
       toggleControlButtons(ENABLE_BUTTONS,HEAL_BUTTON);
+      toggleControlButtons(ENABLE_BUTTONS,STRONG_ADDACK_BUTTON);
       gameStarted = true;
       clearInterval(myInterval);
     }
@@ -70,6 +72,10 @@ function toggleHealButton(mode){
   toggleControlButtons(mode,HEAL_BUTTON);
 }
 
+function toggleStrongAttackButton(mode){
+  toggleControlButtons(mode,STRONG_ADDACK_BUTTON);
+}
+
 function updateStyle(css){
   let style = document.createElement('style');
   if (style.styleSheet) {
@@ -83,7 +89,6 @@ function updateStyle(css){
 
 function creartCss(css,element){
   return css.replace(/dynamicElement/gi, element);
-  //return css.replace('dynamicElement', element);
 }
 
 
@@ -128,7 +133,8 @@ function increasePlayerHealth(healValue) {
 
 function resetGame(value) {
   resetMonitor();
-  toggleHealButton(true);
+  toggleHealButton(DISABLE_BUTTONS);
+  toggleStrongAttackButton(DISABLE_BUTTONS);
   playerHealthBar.value = value;
   monsterHealthBar.value = value;
 }

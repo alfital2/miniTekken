@@ -12,6 +12,7 @@ const USER = "USER";
 
 let use_heal = false;
 let chosenMaxLife = 50;
+let amountOfTimesToUseStrongAttack=2;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife; 
 
@@ -32,8 +33,20 @@ function verifyCanPlay(){
 
 function performAttack(attack){
     let canPlay = verifyCanPlay();
-
     if(canPlay){
+
+        if(attack == MODE_STRONG_ATTACK){
+            if (amountOfTimesToUseStrongAttack>0){
+                attackMonster(attack)
+                amountOfTimesToUseStrongAttack = amountOfTimesToUseStrongAttack - 1;
+                if (amountOfTimesToUseStrongAttack==0){
+                    toggleStrongAttackButton(DISABLE_BUTTONS);
+                }
+            }else{
+                return;
+            }
+        }
+    
         attackMonster(attack)
     }
 }
@@ -71,6 +84,7 @@ function resetGameHandler(){
         currentMonsterHealth =  currentPlayerHealth = chosenMaxLife; 
         resetGame(chosenMaxLife);
         use_heal = false;
+        amountOfTimesToUseStrongAttack=2;
         }
     else{
         alert("the game is still running!");
