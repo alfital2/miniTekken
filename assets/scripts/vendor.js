@@ -37,14 +37,18 @@ function resetMonitor(){
     monitor.innerHTML = i;
     if(i==0) {
       monitor.innerHTML = "FIGHT!"; 
-      toggleControlButtons(ENABLE_BUTTONS,ALL_BUTTONS);
-      toggleControlButtons(ENABLE_BUTTONS,HEAL_BUTTON);
-      toggleControlButtons(ENABLE_BUTTONS,STRONG_ADDACK_BUTTON);
+      reserButtonsStateAfterRestart();
       gameStarted = true;
       clearInterval(myInterval);
     }
     i=i-1;
   },COUNTDOWN_INTERVAL)
+}
+
+function reserButtonsStateAfterRestart(){
+  toggleControlButtons(ENABLE_BUTTONS,ALL_BUTTONS);
+  toggleControlButtons(ENABLE_BUTTONS,HEAL_BUTTON);
+  toggleControlButtons(ENABLE_BUTTONS,STRONG_ADDACK_BUTTON);
 }
 
 function getOpponentHtmlElement(opponent){
