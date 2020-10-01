@@ -8,5 +8,7 @@ the code is written in Js, HTML and CSS.
 * You can use the 'heal' option one time in each game. it will add another 20 points to your health balance. don't use is unless you really need it.
 * You can use the 'strong attack' two times in each game. it will increase the amount of force when you hit the montser. BUT, it is not guaranteed that the hit would be stronger. it is also a matter of luck.
 
+link: 
+https://alfital2.github.io/miniTekken/
 
 enjoy!
